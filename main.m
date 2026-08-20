@@ -37,7 +37,11 @@ for k = 1:N
     
     %% Autopilot & Step %%
     [u, ref_signals] = autopilot.getCommands(p, V, psi, theta, wp);
-    sub.predict(u);
+    
+    sigma_u = [1; 1; 1]; % Noise 
+    u_noisy = u +sigma_u.*rand(3,1);
+
+    sub.predict(u_noisy);
     
     %% Log Data %%
     vis.logStep(k, sub.x, u, ref_signals, idx);
