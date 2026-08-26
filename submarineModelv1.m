@@ -5,10 +5,6 @@ classdef submarineModelv1 < handle
     end
     methods
         function obj = submarineModelv1(x0, dt)
-            arguments
-                x0 (6,1) double = zeros(6,1)
-                dt (1,1) double {mustBePositive} = 0.01
-            end
             obj.x = x0;
             obj.dt = dt;
         end
@@ -34,10 +30,6 @@ classdef submarineModelv1 < handle
                 dV];
         end
         function predict(obj, u)
-            arguments
-                obj (1,1) submarineModelv1
-                u (3,1) double = zeros(3,1)
-            end
             obj.x = obj.x + obj.dt* obj.derivatives(u);
             obj.x(4) = atan2(sin(obj.x(4)), cos(obj.x(4)));
             obj.x(5) = atan2(sin(obj.x(5)), cos(obj.x(5)));
